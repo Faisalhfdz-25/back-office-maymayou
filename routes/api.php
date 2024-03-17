@@ -22,11 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //Menu routes API 
-Route::get('/menu', [MenuController::class, 'index']);
-Route::post('/menu', [MenuController::class,'store']);
+Route::get('menu', [MenuController::class, 'index']);
+Route::post('menu', [MenuController::class,'store']);
 Route::get('menu/{id}',[MenuController::class, 'show']);
 Route::put('menu/{id}', [MenuController::class, 'update']);
-Route::delete('/menu/{id}', [MenuController::class, 'destroy']);
+Route::delete('menu/{id}', [MenuController::class, 'destroy']);
+Route::get('menu/{id}/resep', [MenuController::class, 'showResep']);
 
 
 // Bahan Baku routes API

@@ -68,4 +68,18 @@ class MenuController extends Controller
             'data' => null
         ], 200);
     }
+
+    // Show Resep
+    public function showResep($id)
+    {
+        $menu = Menu::findOrFail($id);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Resep Fecthed Successfully',
+            'data' =>  [
+                'nama' => $menu->nama,
+                'resep' => $menu->resep,
+            ]
+        ], 200);
+    }
 }
