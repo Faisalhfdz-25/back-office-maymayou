@@ -14,9 +14,14 @@ return new class extends Migration
         Schema::create('bahan_baku', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('kategori');
             $table->string('satuan');
-            $table->decimal('harga', 14, 2);
+            $table->integer('harga')->default(0);
+            $table->integer('qty_min')->default(0);
             $table->integer('stok')->default(0);
+            $table->string('merk')->nullable();
+            $table->string('tempat_belanja')->nullable();
+            $table->integer('rumus_bagi')->nullable();
             $table->timestamps();
         });
     }
