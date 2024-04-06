@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BahanBaku;
 use Illuminate\Http\Request;
 
-class BahanBakuController extends Controller
+class APIBahanBakuController extends Controller
 {
     public function index(){
         $bahanbaku = BahanBaku::all();

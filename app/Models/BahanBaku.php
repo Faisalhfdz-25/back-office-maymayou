@@ -10,7 +10,7 @@ class BahanBaku extends Model
 {
     use HasFactory;
     protected $table = 'bahan_baku';
-    protected $fillable = ['nama','satuan','harga','stol'];
+    protected $fillable = ['nama','kategori','satuan','harga','qty_min','stok','merk','tempat_belanja','rumus_bagi'];
 
     public function resep(){
         return $this->hasMany(Resep::class, 'id_bahan_baku');
