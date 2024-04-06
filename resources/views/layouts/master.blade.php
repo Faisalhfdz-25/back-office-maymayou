@@ -3850,6 +3850,10 @@
         // =======================================================
         new HSSideNav('.js-navbar-vertical-aside').init()
 
+        // INITIALIZATION OF SELECT
+        // =======================================================
+        HSCore.components.HSTomSelect.init('.js-select')
+
 
         // INITIALIZATION OF FORM SEARCH
         // =======================================================

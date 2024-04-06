@@ -211,432 +211,79 @@
             @csrf
             <div class="modal-body">
               <div class="row mb-4">
-                <label for="emailLabel" class="col-sm-3 col-form-label form-label">Email</label>
+                <label for="emailLabel" class="col-sm-3 col-form-label form-label">Nama</label>
 
                 <div class="col-sm-9">
-                  <input type="email" class="form-control" name="email" id="emailLabel" placeholder="Email" aria-label="Email" value="mark@site.com">
+                  <input type="email" class="form-control" name="nama" id="nama" placeholder="Nama Bahan Baku">
                 </div>
               </div>
-                                  
-                <div class="row">
-                    <input type="hidden" name="perceraian_id" id="perceraian_id">
-                    <div class="col-md-12" id="peg_nip_input">
-                        <div class="form-group">
-                            <label for="tanggal_selesai">Pegawai <span class="text-danger">*</span></label>
-                            {{ Form::select('peg_nip', [], null, ['placeholder' => 'Pilih Pegawai', 'class' => 'form-control form-control-sm', 'id' => 'peg_nip', 'data-live-search' => 'true', 'data-dropup-auto' => 'false', 'data-display' => 'static', 'onchange' => 'cek_KK();']) }}
-                        </div>
-                    </div>
-                    <div class="col-md-12" id="peg_nip_edit">
-                        <div class="form-group">
-                            <label for="tanggal_selesai">Pegawai <span class="text-danger">*</span></label>
-                            <input type="text" name="peg_nip_edit" class="form-control" id="peg_nip_edit_form" disabled>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="jenis">Jenis Perceraian <span class="text-danger">*</span></label>
-                            {{ Form::select('jenis', ['Menggugat' => 'Menggugat', 'Digugat' => 'Digugat'], null, ['class' => 'form-control selectpicker', 'id' => 'jenis', 'title' => '-- Silahkan Pilih --', 'data-dropup-auto' => 'false', 'data-display' => 'static', 'onchange' => 'cekJenis();']) }}
-                        </div>
-                    </div>
-                    {{-- @if (auth()->user()->role_id == 4)
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="label text-c-blue" for="lampiran_surat_pengantar_opd">Lampiran Surat Pengantar PD <span class="text-danger lampiran"></span></label>
-                                <input type="file" name="lampiran_surat_pengantar_opd" class="form-control" onchange="cekLampiran(this);" id="lampiran_surat_pengantar_opd">
-                                <small>Surat Pengantar dari Kepala PD/Unit Kerja PNS yang bersangkutan</small>
-                                <br><span id="file_lampiran_surat_pengantar_opd"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="label text-c-blue" for="nomor_surat_pengantar_opd">Nomor Surat Pengantar PD <span class="text-danger"></span></label>
-                                <input type="text" name="nomor_surat_pengantar_opd" class="form-control" id="nomor_surat_pengantar_opd" placeholder="Nomor Surat Pengantar OPD">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="label text-c-blue" for="tanggal_surat_pengantar_opd">Tanggal Surat Pengantar PD <span class="text-danger">*</span></label>
-                                <input type="text" name="tanggal_surat_pengantar_opd" class="form-control datepicker" id="tanggal_surat_pengantar_opd" placeholder="Tanggal Surat Pengantar OPD">
-                            </div>
-                        </div>
-                    @endif
-                    @if(auth()->user()->satuan_kerja_id == 1003)
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="label text-c-blue" for="lampiran_surat_pengantar_opd">Lampiran Surat Pengantar KCD <span class="text-danger lampiran">*</span></label>
-                                <input type="file" name="lampiran_surat_pengantar_kcd" class="form-control" onchange="cekLampiran(this);" id="lampiran_surat_pengantar_kcd">
-                                <small>Surat Pengantar dari Kepala KCD Dari PNS yang bersangkutan</small>
-                                <br><span id="file_lampiran_surat_pengantar_kcd"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="label text-c-blue" for="nomor_surat_pengantar_opd">Nomor Surat Pengantar KCD <span class="text-danger">*</span></label>
-                                <input type="text" name="nomor_surat_pengantar_kcd" class="form-control" id="nomor_surat_pengantar_kcd" placeholder="Nomor Surat Pengantar KCD">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="label text-c-blue" for="tanggal_surat_pengantar_opd">Tanggal Surat Pengantar KCD <span class="text-danger">*</span></label>
-                                <input type="text" name="tanggal_surat_pengantar_kcd" class="form-control datepicker" id="tanggal_surat_pengantar_kcd" placeholder="Tanggal Surat Pengantar KCD">
-                            </div>
-                        </div>
-                    @endif --}}
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="nama_pasangan">Nik Pasangan <span class="text-danger">*</span></label>
-                            <input type="text" name="nik_pasangan" class="form-control" id="nik_pasangan" placeholder="Nik Pasangan" >
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="nama_pasangan">Nama Pasangan <span class="text-danger">*</span></label>
-                            <input type="text" name="nama_pasangan" class="form-control" id="nama_pasangan" placeholder="Nama Pasangan" >
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="pekerjaan_pasangan">Pekerjaan Pasangan <span class="text-danger">*</span></label>
-                            {{ Form::select('pekerjaan_pasangan', pekerjaan(), null, ['class' => 'form-control selectpicker', 'id' => 'pekerjaan_pasangan', 'title' => '-- Silahkan Pilih --', 'data-dropup-auto' => 'false', 'data-display' => 'static', 'onchange' => 'cekPekerjaan();']) }}
-                        </div>
-                    </div>
-                    <div class="col-md-6" id="jenispekerjaan" style="display: none;">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="nama_pasangan">Nama Pekerjaan<span class="text-danger">*</span></label>
-                            <input type="text" name="pekerjaan_lainnya" class="form-control" id="pekerjaan_lainnya" placeholder="Pekerjaan Pasangan Lainnya" >
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="tempat_lahir_pasangan">Tempat Lahir Pasangan <span class="text-danger">*</span></label>
-                            <input type="text" name="tempat_lahir_pasangan" class="form-control" id="tempat_lahir_pasangan" placeholder="Tempat Lahir Pasangan">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="tanggal_lahir_pasangan">Tanggal Lahir Pasangan <span class="text-danger">*</span></label>
-                            <input type="text" name="tanggal_lahir_pasangan" class="form-control datepicker" id="tanggal_lahir_pasangan" placeholder="Tanggal Lahir Pasangan">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="alamat_pasangan">Alamat Pasangan <span class="text-danger">*</span></label>
-                            <textarea name="alamat_pasangan" id="alamat_pasangan" class="form-control" rows="1" placeholder="Alamat Pasangan"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="lampiran_kartu_keluarga">Lampiran Kartu Keluarga <span class="text-danger lampiran">*</span></label>
-                            <input type="file" name="lampiran_kartu_keluarga" class="form-control" onchange="cekLampiran(this);" id="lampiran_kartu_keluarga" disabled>
-                            <small>Kartu Keluarga PNS yang bersangkutan</small>
-                            <br><span id="file_lampiran_kartu_keluarga"></span>
-                        </div>
-                    </div>
+
+              <div class="row mb-4">
+                <label for="emailLabel" class="col-sm-3 col-form-label form-label">Kategori</label>
+
+                <div class="col-sm-9">
+                  {{ Form::select('pekerjaan_pasangan', pekerjaan(), null, ['class' => 'js-select form-select', 'id' => 'pekerjaan_pasangan', 'title' => '-- Silahkan Pilih --', 'data-dropup-auto' => 'false', 'data-display' => 'static', 'onchange' => 'cekPekerjaan();']) }}
                 </div>
-                <div id="menggugat" style="display: none;" class="row">
-                    <div class="col-md-12">
-                        <fieldset class="border p-2">
-                            <legend  class="w-auto">Berita Acara Penasihatan (BP4)</legend>
-                            <div class="mt-n3">
-                                <small>Berita Acara Penasehatan (dari Badan Penasihatan Pembinaan dan Pelestarian Perkawinan (BP4)/Surat Keterangan dari KUA Setempat</small>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="kab_kota_bap_bp4_kua">Lokasi BP4 <span class="text-danger">*</span></label>
-                                        <input type="text" name="kab_kota_bap_bp4_kua" class="form-control" id="kab_kota_bap_bp4_kua" placeholder="Lokasi BP4">
-                                        <small>Dapat melalui BP4 Kecamatan atau Kab/Kota</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="nomor_surat_bap_bp4_kua">Nomor Surat <span class="text-danger">*</span></label>
-                                        <input type="text" name="nomor_surat_bap_bp4_kua" class="form-control" id="nomor_surat_bap_bp4_kua" placeholder="Nomor Surat">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="tanggal_surat_bap_bp4_kua">Tanggal Surat <span class="text-danger">*</span></label>
-                                        <input type="text" name="tanggal_surat_bap_bp4_kua" class="form-control datepicker" id="tanggal_surat_bap_bp4_kua" placeholder="Tanggal Surat" >
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="lampiran_bap_bp4_kua">Lampiran Surat <span class="text-danger lampiran">*</span></label>
-                                        <input type="file" name="lampiran_bap_bp4_kua" class="form-control" onchange="cekLampiran(this);" id="lampiran_bap_bp4_kua" >
-                                        <span id="file_lampiran_bap_bp4_kua"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                   
-                    {{-- @if (auth()->user()->satuan_kerja_id == 1003)
-                    <div class="col-md-12" id="disdik">
-                        <fieldset class="border p-2">
-                            <legend  class="w-auto">Berita Acara Pemeriksaan</legend>
-                            <div class="mt-n3">
-                                <small>Berita Acara Pemeriksaan (dari Cabang Wilayah yang bersangkutan)</small>
-                            </div>
-                            <hr>
-                            @if (auth()->user()->role_id == 4)
-                                <span class="text-muted">Berita Acara Fasilitator Dinas Pendidikan</span>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="label text-c-blue" for="tanggal_bap_pd">Tanggal BAP <span class="text-danger">*</span></label>
-                                            <input type="text" name="tanggal_bap_pd" class="form-control datepicker" id="tanggal_bap_pd" placeholder="Tanggal Surat" >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="label text-c-blue" for="lampiran_bap_pd">Lampiran Hasil BAP <span class="text-danger lampiran">*</span></label>
-                                            <input type="file" name="lampiran_bap_pd" class="form-control" onchange="cekLampiran(this);" id="lampiran_bap_pd" >
-                                            <span id="file_lampiran_bap_pd"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                            @endif
-                            <span class="text-muted">Berita Acara KCD</span>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="tanggal_bap_pd2">Tanggal BAP</label>
-                                        <input type="text" name="tanggal_bap_pd2" class="form-control datepicker" id="tanggal_bap_pd2" placeholder="Tanggal Surat">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="lampiran_bap_pd2">Lampiran Hasil BAP</label>
-                                        <input type="file" name="lampiran_bap_pd2" class="form-control" onchange="cekLampiran(this);" id="lampiran_bap_pd2">
-                                        <span id="file_lampiran_bap_pd2"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <span class="text-muted">Berita Acara Sekolah</span>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="tanggal_bap_pd3">Tanggal BAP</label>
-                                        <input type="text" name="tanggal_bap_pd3" class="form-control datepicker" id="tanggal_bap_pd3" placeholder="Tanggal Surat">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="lampiran_bap_pd3">Lampiran Hasil BAP</label>
-                                        <input type="file" name="lampiran_bap_pd3" class="form-control" onchange="cekLampiran(this);" id="lampiran_bap_pd3">
-                                        <span id="file_lampiran_bap_pd3"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                    @else
-                    <div class="col-md-12" id="fasil_bap">
-                        <fieldset class="border p-2">
-                            <legend  class="w-auto">Berita Acara Penasihatan PD</legend>
-                            <div class="mt-n3">
-                                <small>Berita Acara Penasehatan (dari PD/Unit Kerja yang bersangkutan)</small>
-                            </div>
-                            <hr>
-                            <span class="text-muted">Berita Acara Fasilitator Dinas</span>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="tanggal_bap_pd">Tanggal BAP <span class="text-danger">*</span></label>
-                                        <input type="text" name="tanggal_bap_pd" class="form-control datepicker" id="tanggal_bap_pd" placeholder="Tanggal Surat">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="lampiran_bap_pd">Lampiran Hasil BAP <span class="text-danger lampiran">*</span></label>
-                                        <input type="file" name="lampiran_bap_pd" class="form-control" onchange="cekLampiran(this);" id="lampiran_bap_pd">
-                                        <span id="file_lampiran_bap_pd"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <span class="text-muted">Berita Acara Unit Kerja</span>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="tanggal_bap_pd2">Tanggal BAP</label>
-                                        <input type="text" name="tanggal_bap_pd2" class="form-control datepicker" id="tanggal_bap_pd2" placeholder="Tanggal Surat">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="lampiran_bap_pd2">Lampiran Hasil BAP</label>
-                                        <input type="file" name="lampiran_bap_pd2" class="form-control" onchange="cekLampiran(this);" id="lampiran_bap_pd2">
-                                        <span id="file_lampiran_bap_pd2"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <span class="text-muted">Berita Acara  UPTD</span>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="tanggal_bap_pd3">Tanggal BAP</label>
-                                        <input type="text" name="tanggal_bap_pd3" class="form-control datepicker" id="tanggal_bap_pd3" placeholder="Tanggal Surat">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="lampiran_bap_pd3">Lampiran Hasil BAP</label>
-                                        <input type="file" name="lampiran_bap_pd3" class="form-control" onchange="cekLampiran(this);" id="lampiran_bap_pd3">
-                                        <span id="file_lampiran_bap_pd3"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                    @endif --}}
-                   
-                    {{-- <div class="col-md-12">
-                        <fieldset class="border p-2">
-                            <legend  class="w-auto">Keterangan Desa/Kelurahan</legend>
-                            <div class="mt-n3">
-                                <small>Keterangan dari Kepala Desa/Kelurahan yang diketahui Camat</small>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label class="form-label">Provinsi</label>
-                                    {{ Form::select('province_id', [null=>'Pilih Provinsi']+provinces(), null, ['class'=>'form-control selectpicker', 'id'=>'province_id', 'onChange'=>'getRegencies(this.value);', 'data-live-search' => 'true', 'data-dropup-auto' => 'false', 'data-display' => 'static']) }}
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Kota/Kabupaten</label>
-                                    {{ Form::select('regency_id', [], null, ['class'=>'form-control selectpicker', 'id'=>'regency_id', 'onChange'=>'getDistricts(this.value);', 'data-live-search' => 'true', 'data-dropup-auto' => 'false', 'data-display' => 'static']) }}
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Kecamatan</label>
-                                    {{ Form::select('district_id', [], null, ['class'=>'form-control selectpicker', 'id'=>'district_id', 'onChange'=>'getVillages(this.value);', 'data-live-search' => 'true','data-dropup-auto' => 'false', 'data-display' => 'static']) }}
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Kelurahan/Desa <span class="text-danger">*</span></label>
-                                    {{ Form::select('village_id', [], null, ['class'=>'form-control selectpicker', 'id'=>'village_id', 'data-live-search' => 'true','data-dropup-auto' => 'false', 'data-display' => 'static']) }}
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="nomor_surat_keterangan_desa">Nomor Surat <span class="text-danger">*</span></label>
-                                        <input type="text" name="nomor_surat_keterangan_desa" class="form-control" id="nomor_surat_keterangan_desa" placeholder="Nomor Surat">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="tanggal_surat_keterangan_desa">Tanggal Surat <span class="text-danger">*</span></label>
-                                        <input type="text" name="tanggal_surat_keterangan_desa" class="form-control datepicker" id="tanggal_surat_keterangan_desa" placeholder="Tanggal Surat">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="lampiran_surat_keterangan_desa">Lampiran Surat <span class="text-danger lampiran">*</span></label>
-                                        <input type="file" name="lampiran_surat_keterangan_desa" class="form-control" onchange="cekLampiran(this);" id="lampiran_surat_keterangan_desa">
-                                        <span id="file_lampiran_surat_keterangan_desa"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div> --}}
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="lampiran_surat_permohonan">Lampiran Surat Permohonan <span class="text-danger lampiran">*</span></label>
-                            <input type="file" name="lampiran_surat_permohonan" class="form-control" onchange="cekLampiran(this);" id="lampiran_surat_permohonan" >
-                            <small>Surat Permohonan secara tertulis yang bersangkutan kepada Kepala PD disertai alasan yang mendasari perceraian</small>
-                            <br><span id="file_lampiran_surat_permohonan"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="lampiran_akta_nikah">Lampiran Akta Nikah <span class="text-danger lampiran">*</span></label>
-                            <input type="file" name="lampiran_akta_nikah" class="form-control" onchange="cekLampiran(this);" id="lampiran_akta_nikah" >
-                            <small>Akta Nikah (yang tercatat secara resmi pada KUA/Catatan Sipil)</small>
-                            <br><span id="file_lampiran_akta_nikah"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="lampiran_surat_pernyataan">Lampiran Surat Pernyataan</label>
-                            <input type="file" name="lampiran_surat_pernyataan" class="form-control" onchange="cekLampiran(this);" id="lampiran_surat_pernyataan">
-                            <small>Pernyataan tergugat bersedia dicerai/menceraikan, diatas materai. Jika tidak ada, mohon lampirkan Surat Tanggungjawab Mutlak dari pegawai yang bersangkutan</small>
-                            <br><span id="file_lampiran_surat_pernyataan"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="lampiran_sk_pangkat">Lampiran SK Pangkat Terakhir <span class="text-danger lampiran">*</span></label>
-                            <input type="file" name="lampiran_sk_pangkat" class="form-control" onchange="cekLampiran(this);" id="lampiran_sk_pangkat">
-                            <br><span id="file_lampiran_sk_pangkat"></span>
-                        </div>
-                    </div>
+              </div>
+
+              <div class="row mb-4">
+                <label for="emailLabel" class="col-sm-3 col-form-label form-label">Satuan</label>
+
+                <div class="col-sm-9">
+                  {{ Form::select('pekerjaan_pasangan', pekerjaan(), null, ['class' => 'js-select form-select', 'id' => 'pekerjaan_pasangan', 'title' => '-- Silahkan Pilih --', 'data-dropup-auto' => 'false', 'data-display' => 'static', 'onchange' => 'cekPekerjaan();']) }}
                 </div>
-                <div id="digugat" style="display: none;" class="row">
-                    <div class="col-md-12">
-                        <fieldset class="border p-2">
-                            <legend  class="w-auto">Panggilan (Relaas)</legend>
-                            <div class="mt-n3">
-                                <small>Surat Panggilan (Relaas) dari Pengadilan Agama (dalam hal seorang Pegawai Negeri Sipil digugat cerai oleh pihak lain)</small>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="kab_kota_relaas">Kab/Kota Lokasi Pengadilan Agama <span class="text-danger">*</span></label>
-                                        <input type="text" name="kab_kota_relaas" class="form-control" id="kab_kota_relaas" placeholder="Kab/Kota Lokasi Pengadilan Agama" >
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="nomor_surat_panggilan_relaas">Nomor Surat <span class="text-danger">*</span></label>
-                                        <input type="text" name="nomor_surat_panggilan_relaas" class="form-control" id="nomor_surat_panggilan_relaas" placeholder="Nomor Surat" >
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="tanggal_surat_panggilan_relaas">Tanggal Surat <span class="text-danger">*</span></label>
-                                        <input type="text" name="tanggal_surat_panggilan_relaas" class="form-control datepicker" id="tanggal_surat_panggilan_relaas" placeholder="Tanggal Surat" >
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="label text-c-blue" for="lampiran_surat_panggilan_relaas">Lampiran Surat Relaas <span class="text-danger lampiran">*</span></label>
-                                        <input type="file" name="lampiran_surat_panggilan_relaas" class="form-control" onchange="cekLampiran(this);" id="lampiran_surat_panggilan_relaas" >
-                                        <span id="file_lampiran_surat_panggilan_relaas"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="lampiran_surat_pemberitahuan_gugatan">Lampiran Surat Pemberitahuan Gugatan <span class="text-danger lampiran">*</span></label>
-                            <input type="file" name="lampiran_surat_pemberitahuan_gugatan" class="form-control" onchange="cekLampiran(this);" id="lampiran_surat_pemberitahuan_gugatan">
-                            <small>Surat Pemberitahuan Adanya Gugatan Perceraian secara tertulis yang bersangkutan kepada Kepala PD disertai alasan yang mendasari perceraian</small>
-                            <br><span id="file_lampiran_surat_pemberitahuan_gugatan"></span>
-                        </div>
-                    </div>
+              </div>
+
+              <div class="row mb-4">
+                <label for="emailLabel" class="col-sm-3 col-form-label form-label">Harga</label>
+
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" name="nama" id="nama" placeholder="Harga Bahan Baku">
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="lampiran_bukti_pendukung_lainnya">Lampiran Bukti Pendukung Lainnya</label>
-                            <input type="file" name="lampiran_bukti_pendukung_lainnya" class="form-control" onchange="cekLampiran(this);" id="lampiran_bukti_pendukung_lainnya">
-                            <small>Lampiran Bukti Pendukung Lainnya Merupakan Lampiran Berkaitan Dengan Hal - Hal Yang Mendukung Alasan Perceraian</small>
-                            <span id="file_lampiran_bukti_pendukung_lainnya"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="label text-c-blue" for="keterangan">Keterangan (Resume alasan/penyebab Perceraian)</label>
-                            <textarea name="keterangan" id="keterangan" class="form-control" rows="1" placeholder="Keterangan"></textarea>
-                        </div>
-                    </div>
+              </div>
+
+              <div class="row mb-4">
+                <label for="emailLabel" class="col-sm-3 col-form-label form-label">QTY Min</label>
+
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" name="nama" id="nama" placeholder="QTY Min Bahan Baku">
                 </div>
+              </div>
+
+              <div class="row mb-4">
+                <label for="emailLabel" class="col-sm-3 col-form-label form-label">Stok</label>
+
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" name="nama" id="nama" placeholder="Stok Bahan Baku">
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <label for="emailLabel" class="col-sm-3 col-form-label form-label">Merk</label>
+
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" name="nama" id="nama" placeholder="Merk Bahan Baku">
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <label for="emailLabel" class="col-sm-3 col-form-label form-label">Tempat</label>
+
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" name="nama" id="nama" placeholder="Tempat Belanja Bahan Baku">
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <label for="emailLabel" class="col-sm-3 col-form-label form-label">Rumus Bagi</label>
+
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" name="nama" id="nama" placeholder="Rumus Bagi Bahan Baku">
+                </div>
+              </div>
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
                 <button type="submit" class="btn btn-primary btn-sm saveButton">Simpan</button>
             </div>
         </form>
