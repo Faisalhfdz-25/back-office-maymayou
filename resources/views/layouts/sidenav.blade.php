@@ -38,6 +38,14 @@
               <div id="navbarVerticalMenuPagesProjectsMenu" class="nav-collapse collapse " data-bs-parent="#navbarVerticalMenuPagesMenu">
                 <a class="nav-link " href="/bahanbaku">Bahan Baku</a>
               </div>
+
+              <div id="navbarVerticalMenuPagesProjectsMenu" class="nav-collapse collapse " data-bs-parent="#navbarVerticalMenuPagesMenu">
+                <a class="nav-link " href="/produk">Produk</a>
+              </div>
+
+              <div id="navbarVerticalMenuPagesProjectsMenu" class="nav-collapse collapse " data-bs-parent="#navbarVerticalMenuPagesMenu">
+                <a class="nav-link " href="/menu">Menu</a>
+              </div>
             </div>
         </div>
         <!-- End Content -->
