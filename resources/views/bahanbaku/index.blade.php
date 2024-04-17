@@ -214,7 +214,7 @@
                 <label for="emailLabel" class="col-sm-3 col-form-label form-label">Nama</label>
 
                 <div class="col-sm-9">
-                  <input type="email" class="form-control" name="nama" id="nama" placeholder="Nama Bahan Baku">
+                  <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Bahan Baku">
                 </div>
               </div>
 
@@ -238,7 +238,7 @@
                 <label for="emailLabel" class="col-sm-3 col-form-label form-label">Harga</label>
 
                 <div class="col-sm-9">
-                  <input type="email" class="form-control" name="nama" id="nama" placeholder="Harga Bahan Baku">
+                  <input type="number" class="form-control" name="nama" id="nama" placeholder="Harga Bahan Baku">
                 </div>
               </div>
 
@@ -246,7 +246,7 @@
                 <label for="emailLabel" class="col-sm-3 col-form-label form-label">QTY Min</label>
 
                 <div class="col-sm-9">
-                  <input type="email" class="form-control" name="nama" id="nama" placeholder="QTY Min Bahan Baku">
+                  <input type="number" class="form-control" name="nama" id="nama" placeholder="QTY Min Bahan Baku">
                 </div>
               </div>
 
@@ -254,7 +254,7 @@
                 <label for="emailLabel" class="col-sm-3 col-form-label form-label">Stok</label>
 
                 <div class="col-sm-9">
-                  <input type="email" class="form-control" name="nama" id="nama" placeholder="Stok Bahan Baku">
+                  <input type="number" class="form-control" name="nama" id="nama" placeholder="Stok Bahan Baku">
                 </div>
               </div>
 
@@ -262,7 +262,7 @@
                 <label for="emailLabel" class="col-sm-3 col-form-label form-label">Merk</label>
 
                 <div class="col-sm-9">
-                  <input type="email" class="form-control" name="nama" id="nama" placeholder="Merk Bahan Baku">
+                  <input type="text" class="form-control" name="nama" id="nama" placeholder="Merk Bahan Baku">
                 </div>
               </div>
 
@@ -270,7 +270,7 @@
                 <label for="emailLabel" class="col-sm-3 col-form-label form-label">Tempat</label>
 
                 <div class="col-sm-9">
-                  <input type="email" class="form-control" name="nama" id="nama" placeholder="Tempat Belanja Bahan Baku">
+                  <input type="text" class="form-control" name="nama" id="nama" placeholder="Tempat Belanja Bahan Baku">
                 </div>
               </div>
 
@@ -278,7 +278,7 @@
                 <label for="emailLabel" class="col-sm-3 col-form-label form-label">Rumus Bagi</label>
 
                 <div class="col-sm-9">
-                  <input type="email" class="form-control" name="nama" id="nama" placeholder="Rumus Bagi Bahan Baku">
+                  <input type="text" class="form-control" name="nama" id="nama" placeholder="Rumus Bagi Bahan Baku">
                 </div>
               </div>
 
@@ -318,12 +318,12 @@
                       $('.saveButton').prop('disabled', false);
                       if (data.success) {
                           Swal.fire('Selamat!', 'Data Pengajuan Berhasil disimpan!', 'success');
-                          $('#modal_pengajuan_input').modal('hide');
-                          getPengajuanData();
+                          $('#inviteUserModal').modal('hide');
+                          getBahanData();
                       } else {
                           Swal.fire('Maaf!', 'Data Pengajuan Gagal disimpan, silahkan coba beberapa saat lagi!<br>'+data.pesan, 'error');
-                          $('#modal_pengajuan_input').modal('hide');
-                          getPengajuanData();
+                          $('#inviteUserModal').modal('hide');
+                          getBahanData();
                       }
                   },
                   error: function(err) {
@@ -391,73 +391,9 @@
       pengajuan_table.ajax.url("{{url('bahanbaku/getdata')}}").load(null, false);
   }
 
-  function cek_KK() {
-      var nip = $('#peg_nip').val();
-      if (nip) {
-          $.get("{{ url('perceraian/pengajuan/cek_KK') }}/"+nip, function(data) {
-              if (data == 'false') {
-                  Swal.fire('Maaf!', 'Pegawai yang bersangkutan belum mengunggah file Kartu Keluarga di Siap Jabar. Harap unggah Kartu Keluarga terlebih dahulu di akun Siap Jabar Pegawai yang bersangkutan!', 'error');
-                  $('#peg_nip').selectpicker('val', '');
-                  $('#file_lampiran_kartu_keluarga').html('');
-              } else {
-                  $('#file_lampiran_kartu_keluarga').html(data);
-              }
-          });
-      }
-  }
-  
-  function getRegencies(province_id) {
-      $.get('{{ url("ajax-regencies") }}?province_id=' + province_id, function(data) {
-          $('#regency_id').html(data);
-          regency_id = $('#regency_id').val();
-          getDistricts(regency_id);
-          $('#regency_id').selectpicker('refresh');
-      });
-  }
-
-  function getDistricts(regency_id) {
-      $.get('{{ url("ajax-districts") }}?regency_id=' + regency_id, function(data) {
-          $('#district_id').html(data);
-          district_id = $('#district_id').val();
-          getVillages(district_id);
-          $('#district_id').selectpicker('refresh');
-      });
-  }
-
-  function getVillages(district_id) {
-      $.get('{{ url("ajax-villages") }}?district_id=' + district_id, function(data) {
-          $('#village_id').html(data);
-          $('#village_id').selectpicker('refresh');
-      });
-  }
-
   function clearForm() {
-      $('#pengajuan_form').trigger('reset');
-      $('#pengajuan_form_pd').trigger('reset');
-      $('#lapor_form').trigger('reset');
-      $('#perceraian_id').val('');
-      $('#perceraian_id_lapor').val('');
-      $('#menggugat').hide();
-      $('#digugat').hide();
-      $('#peg_nip').html('');
-      $('#regency_id').html('');
-      $('#district_id').html('');
-      $('#village_id').html('');
+      $('#bahanbaku_form').trigger('reset');
       $('.selectpicker').selectpicker('refresh');
-  }
-
-  function pengajuan() {
-      clearForm();
-      $('.lampiran').show();
-      $('#peg_nip_input').show();
-      $('#peg_nip_edit').hide();
-      $("#modal_pengajuan_input").modal("show");
-  }
-
-  function lapor(id) {
-      clearForm();
-      $('#perceraian_id_lapor').val(id);
-      $("#modal_lapor").modal("show");
   }
 
   function edit(id) {
@@ -543,20 +479,6 @@
       });
   }
 
-  function cekJenis() {
-      jenis = $('#jenis').val();
-      if (jenis == 'Menggugat') {
-          $('#menggugat').show();
-          $('#digugat').hide();
-      } else if (jenis == 'Digugat') {
-          $('#menggugat').hide();
-          $('#digugat').show();
-      } else {
-          $('#menggugat').hide();
-          $('#digugat').hide();
-      }
-  }
-
   function hapus(id) {
       Swal.fire({
           title: 'Yakin?',
@@ -591,87 +513,5 @@
           }
       })
   }
-
-  function tolak(id) {
-      clearForm();
-      $('#perceraian_id_tolak').val(id);
-      $('#modal_tolak_pengajuan').modal('show');
-  }
-
-  function editpd(id) {
-      clearForm();
-      $('#perceraian_id_lampiran').val(id);
-      $('#modal_lampiran_pd').modal('show');
-  }
-
-  function ajukan(id) {
-      Swal.fire({
-          title: 'Yakin?',
-          text: "Data yang diinput sudah benar semua?",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#2CA961',
-          confirmButtonText: 'Ya, Ajukan!'
-      }).then((result) => {
-          if (result.isConfirmed) {
-              $.ajax({
-                  url: "{{url('perceraian/pengajuan/ajukan')}}",
-                  type: "post",
-                  data: {
-                      _token: '{{csrf_token()}}',
-                      id: id
-                  },
-                  dataType: "json",
-                  success: function(data) {
-                      console.log(data);
-                      if (data) {
-                          Swal.fire('Berhasil!', 'Pengajuan Perceraian berhasil diajukan.', 'success');
-                          getPengajuanData();
-                      } else {
-                          Swal.fire('Gagal!', 'Pengajuan Perceraian gagal diajukan, silahkan refresh halaman ini kemudian coba lagi.', 'error');
-                      }
-                  },
-                  error: function(err) {
-                      Swal.fire('Error!', 'Lihat errornya di console.', 'error');
-                  }
-              });
-          }
-      })
-  }
-
-  function isAllowed(ext) {
-      switch (ext.toLowerCase()) {
-          case 'pdf':
-              return true;
-      }
-      return false;
-  }
-
-  function cekLampiran(that) {
-      filename = $(that).val();
-      var parts = filename.split('.');
-      var ext = parts[parts.length - 1];
-      if (!isAllowed(ext)) {
-          Swal.fire('Maaf!', "File yang anda lampirkan tidak diizinkan!<br>Ekstensi yang diizinkan adalah: pdf", 'error');
-          $(that).val('');
-      }
-      if ($(that).attr('id') != 'dokumen_tugas_akhir') {
-          if (that.files[0].size > 2097152) {
-              Swal.fire("Maaf!", "File yang di input tidak boleh lebih dari 2MB.", "error");
-              $(that).val('');
-          }
-      }
-  }
-
-  function cekPekerjaan() {
-      jenis = $('#pekerjaan_pasangan').val();
-      console.log(jenis);
-      if (jenis == 'Lain - Lain') {
-          $('#jenispekerjaan').show();
-      }else{
-          $('#jenispekerjaan').hide();
-      }
-  }
-  
 </script>
 @endsection

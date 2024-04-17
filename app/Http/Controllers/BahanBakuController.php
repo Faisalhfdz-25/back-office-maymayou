@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\BahanBaku;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BahanBakuController extends Controller
 {
@@ -19,5 +21,27 @@ class BahanBakuController extends Controller
 
         }
         return response()->json(['data' => $data]);
+    }
+
+    public function simpan(Request $request)
+    {
+        $user = Auth::user();
+        $bahan = new BahanBaku();
+        $success = false;
+        $pesan = '';
+        if ($request->bahan_id) {
+            $cerai = BahanBaku::find($request->bahan_id);
+            $keterangan = 'Perbaikan Data';
+        } else {
+            $keterangan = 'Data Baru';
+        }
+        DB::beginTransaction();
+        try {
+            $success = true;
+            
+        } catch (\Throwable $th) {
+            $success = false;
+        }
+        return response()->json(['success' => $success, 'pesan' => $pesan]);
     }
 }
