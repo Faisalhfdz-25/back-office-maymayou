@@ -12,10 +12,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
-Route::get('/data', function () {
-    return view('data.index');
-});
-
 Route::controller(BahanBakuController::class)->group(function(){
     Route::get('bahanbaku','index');
+    Route::get('bahanbaku/getdata','getdata');
+    Route::post('/bahanbaku/simpan', 'simpan');
 });

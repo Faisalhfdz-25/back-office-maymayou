@@ -140,7 +140,7 @@
                 <th>Merk</th>
                 <th>Tempat Belanja</th>
                 <th>Rumus Bagi</th>
-                <th></th>
+                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -207,7 +207,7 @@
         </div>
 
         <div class="modal-body">
-          <form id="pengajuan_form" method="post" action="{{url('perceraian/pengajuan/simpan')}}" novalidate enctype="multipart/form-data">
+          <form id="bahanbaku_form" method="post" action="{{url('bahanbaku/simpan')}}" novalidate enctype="multipart/form-data">
             @csrf
             <div class="modal-body">
               <div class="row mb-4">
@@ -222,7 +222,7 @@
                 <label for="emailLabel" class="col-sm-3 col-form-label form-label">Kategori</label>
 
                 <div class="col-sm-9">
-                  {{ Form::select('pekerjaan_pasangan', pekerjaan(), null, ['class' => 'js-select form-select', 'id' => 'pekerjaan_pasangan', 'title' => '-- Silahkan Pilih --', 'data-dropup-auto' => 'false', 'data-display' => 'static', 'onchange' => 'cekPekerjaan();']) }}
+                  {{ Form::select('pekerjaan_pasangan', kategori(), null, ['class' => 'js-select form-select', 'id' => 'pekerjaan_pasangan', 'title' => '-- Silahkan Pilih --', 'data-dropup-auto' => 'false', 'data-display' => 'static', 'onchange' => 'cekPekerjaan();']) }}
                 </div>
               </div>
 
@@ -230,7 +230,7 @@
                 <label for="emailLabel" class="col-sm-3 col-form-label form-label">Satuan</label>
 
                 <div class="col-sm-9">
-                  {{ Form::select('pekerjaan_pasangan', pekerjaan(), null, ['class' => 'js-select form-select', 'id' => 'pekerjaan_pasangan', 'title' => '-- Silahkan Pilih --', 'data-dropup-auto' => 'false', 'data-display' => 'static', 'onchange' => 'cekPekerjaan();']) }}
+                  {{ Form::select('pekerjaan_pasangan', satuan(), null, ['class' => 'js-select form-select', 'id' => 'pekerjaan_pasangan', 'title' => '-- Silahkan Pilih --', 'data-dropup-auto' => 'false', 'data-display' => 'static', 'onchange' => 'cekPekerjaan();']) }}
                 </div>
               </div>
 
@@ -296,9 +296,9 @@
 @section('js')
 <script>
   $(document).ready(function() {
-      getPengajuanData();
+      getBahanData();
       
-      $('#bahan_form').validate({
+      $('#bahanbaku_form').validate({
           highlight: function(input) {
               $(input).parents('.form-line').addClass('is-invalid');
           },
@@ -331,82 +331,10 @@
                   }
               });
           }
-      });
-      
-      $('#tolak_pengajuan_form').validate({
-          highlight: function (input) {
-              $(input).parents('.form-line').addClass('is-invalid');
-          },
-          unhighlight: function (input) {
-              $(input).parents('.form-line').removeClass('is-invalid');
-          },
-          submitHandler: function(form) {
-              $('.saveButton').prop('disabled', true);
-              $.ajax({
-                  url: form.action,
-                  type: form.method,
-                  data: new FormData(form),
-                  processData: false,
-                  contentType: false,
-                  dataType: "json",
-                  success: function(success) {
-                      $('.saveButton').prop('disabled', false);
-                      if (success) {
-                          Swal.fire('Selamat!', 'Data Pengajuan Berhasil ditolak!', 'success');
-                          $('#modal_tolak_pengajuan').modal('hide');
-                          getPengajuanData();
-                      } else {
-                          Swal.fire('Maaf!', 'Data Pengajuan Gagal ditolak, silahkan coba beberapa saat lagi!', 'error');
-                          $('#modal_tolak_pengajuan').modal('hide');
-                          getPengajuanData();
-                      }
-                  },
-                  error: function(err) {
-                      $('.saveButton').prop('disabled', false);
-                  }
-              });
-          }
-      });
-
-      $('#lapor_form').validate({
-          highlight: function(input) {
-              $(input).parents('.form-line').addClass('is-invalid');
-          },
-          unhighlight: function(input) {
-              $(input).parents('.form-line').removeClass('is-invalid');
-          },
-          submitHandler: function(form) {
-              $('.saveButton').prop('disabled', true);
-              $.ajax({
-                  url: form.action,
-                  type: form.method,
-                  data: new FormData(form),
-                  processData: false,
-                  contentType: false,
-                  dataType: "json",
-                  success: function(data) {
-                      $('.saveButton').prop('disabled', false);
-                      if (data.success) {
-                          Swal.fire('Selamat!', 'Data Laporan Berhasil disimpan!', 'success');
-                          $('#modal_lapor').modal('hide');
-                          getPengajuanData();
-                      } else {
-                          Swal.fire('Maaf!', 'Data Laporan Gagal disimpan, silahkan coba beberapa saat lagi!<br>'+data.pesan, 'error');
-                          $('#modal_lapor').modal('hide');
-                          getPengajuanData();
-                      }
-                  },
-                  error: function(err) {
-                      $('.saveButton').prop('disabled', false);
-                  }
-              });
-          }
-      });
-      
-      
+      });  
   });
   
-  var pengajuan_table = $('#pengajuan_table').DataTable({
+  var pengajuan_table = $('#datatable').DataTable({
       responsive: true,
       processing: true,
       ajax: "",
@@ -417,22 +345,31 @@
               defaultContent: ''
           },
           {
-              data: "nama_pegawai"
+              data: "nama"
           },
           {
-              data: "jabatan_nama"
+              data: "kategori"
           },
           {
-              data: "unit_kerja_nama"
+              data: "satuan"
           },
           {
-              data: "satuan_kerja_nama"
+              data: "harga"
           },
           {
-              data: "jenis"
+              data: "qty_min"
           },
           {
-              data: "status"
+              data: "stok"
+          },
+          {
+              data: "merk"
+          },
+          {
+              data: "tempat_belanja"
+          },
+          {
+              data: "rumus_bagi"
           },
           {
               data: "aksi",
@@ -450,8 +387,8 @@
       });
   }).draw();
   
-  function getPengajuanData() {
-      pengajuan_table.ajax.url("{{url('perceraian/pengajuan/getData')}}").load(null, false);
+  function getBahanData() {
+      pengajuan_table.ajax.url("{{url('bahanbaku/getdata')}}").load(null, false);
   }
 
   function cek_KK() {

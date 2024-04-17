@@ -229,16 +229,28 @@ function menus()
     return $menu;
 }
 
-function pekerjaan()
+function satuan()
 {
     return [
-        'Ibu Rumah Tangga' => 'Ibu Rumah Tangga',
-        'Karyawan Swasta' => 'Karyawan Swasta',
-        'Wiraswasta' => 'Wiraswasta',
-        'TNI' => 'TNI',
-        'POLRI' => 'POLRI',
-        'ASN' => 'ASN',
-        'Lain - Lain' => 'Lain - Lain',
+        'Gram' => 'Gram',
+        'Kg' => 'Kg',
+        'Pcs' => 'Pcs',
+        'Pack' => 'Pack',
+        'Bottle' => 'Bottle',
+        'Box' => 'Box'
+    ];
+}
+
+function kategori()
+{
+    return [
+        'Meat' => 'Meat (Daging)',
+        'Diaries' => 'Diaries (Produk Peternakan)',
+        'Produce' => 'Produce (Produk Pertanian)',
+        'Groceries' => 'Groceries (Barang Gudang Kering)',
+        'Condiment' => 'Condiment (Bumbu & Rempah)',
+        'Beverage' => 'Beverage (Minuman)',
+        'Packaging' => 'Packaging (kemasan)',
     ];
 }
 
