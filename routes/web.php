@@ -1,19 +1,29 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BahanBakuController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InventoryListController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('login');
-});
+Route::get('/',[AuthController::class,'login'])->name('login');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('auth.authenticate');
+Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
 
-Route::controller(BahanBakuController::class)->group(function(){
-    Route::get('bahanbaku','index');
-    Route::get('bahanbaku/getdata','getdata');
-    Route::post('/bahanbaku/simpan', 'simpan');
+Route::middleware('auth')->group(function(){
+    Route::controller(DashboardController::class)->group(function(){
+        Route::get('/dashboard','index');
+    });
+
+    Route::controller(InventoryListController::class)->group(function(){
+        Route::get('/inventory-list','index');
+    });
+    
+    Route::controller(SupplierController::class)->group(function(){
+        Route::get('/supplier','index');
+        Route::get('/supplier/getData','getData');
+    });
 });
