@@ -428,6 +428,10 @@
         <div id="overlay"></div>
 
     </div> <!-- END WRAPPER -->
+    <script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
     <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="assets/scripts/siqtheme.js"></script>
     <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
@@ -435,6 +439,7 @@
     <script src="assets/scripts/pages/dashboard1.js"></script>
     <script src="assets/scripts/pages/tb_datatables.js"></script>
     <script src="assets/scripts/pages/ui_modal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @yield('script')
 </body>

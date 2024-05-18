@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\DB;
 class SupplierController extends Controller
 {
     public function index(){
-        return view('supplier.index');
+        $data = Supplier::all();
+        return view('supplier.index',compact('data'));
     }
 
     public function getData(){
@@ -23,33 +24,20 @@ class SupplierController extends Controller
 
     public function simpan(Request $request)
     {
-        $user = Auth::user();
-        $data = new Supplier();
-        $success = false;
-        $pesan = '';
-        if ($request->supplier_id) {
-            $cerai = Supplier::find($request->supplier_id);
-            $keterangan = 'Perbaikan Data';
-        } else {
-            $keterangan = 'Data Baru Pengajuan';
-        }
+        $data = new Supplier();        
         DB::beginTransaction();
         try {
             $data->nama = $request->nama;
             $data->alamat = $request->alamat;
-            
-            if ($cerai->save()) {
-                $success = true;
+            if ($data->save()) {
                 DB::commit();
             } else {
-                $success = false;
                 DB::rollback();
             }
         } catch (\Throwable $th) {
-            $success = false;
             DB::rollback();
         }
-        return response()->json(['success' => $success, 'pesan' => $pesan]);
+        return redirect('/supplier')->with('Save','Data Berhasil Disimpan');
     }
 
     public function hapus(Request $request)
@@ -63,5 +51,34 @@ class SupplierController extends Controller
         } else {
             return 'false';
         }
+    }
+
+    public function getdetail(Request $request)
+    {
+        $data = Supplier::find($request->id);
+        if (!$data) {
+            return false;
+        }
+        $data->nama = $data->nama;
+        $data->alamat = $data->alamat;
+        return $data;
+    }
+
+    public function update(Request $request)
+    {
+        $data = Supplier::find($request->id);       
+        DB::beginTransaction();
+        try {
+            $data->nama = $request->nama;
+            $data->alamat = $request->alamat;
+            if ($data->update()) {
+                DB::commit();
+            } else {
+                DB::rollback();
+            }
+        } catch (\Throwable $th) {
+            DB::rollback();
+        }
+        return redirect('/supplier')->with('Save','Data Berhasil Disimpan');
     }
 }

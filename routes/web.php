@@ -25,5 +25,9 @@ Route::middleware('auth')->group(function(){
     Route::controller(SupplierController::class)->group(function(){
         Route::get('/supplier','index');
         Route::get('/supplier/getData','getData');
+        Route::post('/supplier/hapus', 'hapus');
+        Route::post('/supplier/simpan', 'simpan');
+        Route::post('/supplier/update', 'update');
+        Route::get('/supplier/getDetail', 'getdetail');
     });
 });

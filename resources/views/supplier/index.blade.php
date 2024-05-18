@@ -36,6 +36,16 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($data as $item)
+                                    <tr>
+                                        <td>{{ $item->nama }}</td>
+                                        <td>{{ $item->alamat }}</td>
+                                        <td>
+                                            <a class="btn btn-sm btn-warning" href="javascript:void(0);" onclick="edit('{{ $item->id }}')">Edit</a>
+                                            <a class="btn btn-sm btn-danger" href="javascript:void(0);" onclick="hapus('{{ $item->id }}')">Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -56,22 +66,65 @@
             </div>
             <div class="modal-body">
                 <div class="card mb-3">
-                    <form role="form">
+                    <form method="post" action="{{url('supplier/simpan')}}" novalidate enctype="multipart/form-data">
+                        @csrf
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <div class="form-group row">
                                     <label class="col-md-3 col-form-label">Nama</label>
                                     <div class="col">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="First Name">
-                                            
+                                            <input type="text" class="form-control" name="nama">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 col-form-label">Textarea</label>
+                                    <label class="col-md-3 col-form-label">Alamat</label>
                                     <div class="col">
-                                        <textarea class="form-control" placeholder="Hello World!"></textarea>
+                                        <textarea class="form-control" name="alamat"></textarea>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-3">
+                    <form method="post" action="{{url('supplier/update')}}" novalidate enctype="multipart/form-data">
+                        @csrf
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Nama</label>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <input type="hidden" class="form-control" name="id" id="id_edit">
+                                            <input type="text" class="form-control" name="nama" id="nama_edit">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Alamat</label>
+                                    <div class="col">
+                                        <textarea class="form-control" name="alamat" id="alamat_edit"></textarea>
                                     </div>
                                 </div>
                             </li>
@@ -89,44 +142,63 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function(){
-            getSupplierData();
-        });
+        function hapus(id) {
+            Swal.fire({
+                title: 'Yakin?',
+                text: "Mau menghapus Data ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#FF2C2C',
+                confirmButtonText: 'Ya, Hapus aja!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{url('supplier/hapus')}}",
+                        type: "post",
+                        data: {
+                            _token: '{{csrf_token()}}',
+                            id: id
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data) {
+                                Swal.fire('Berhasil!', 'Data Supplier berhasil dihapus.', 'success');
+                                location.reload()
+                            } else {
+                                Swal.fire('Gagal!', 'Data Supplier gagal dihapus, silahkan refresh halaman ini kemudian coba lagi.', 'error');
+                                location.reload()
+                            }
+                        },
+                        error: function(err) {
+                            Swal.fire('Error!', 'Lihat errornya di console.', 'error');
+                            location.reload()
+                        }
+                    });
+                }
+            })
+        }
 
-        var supplier_table = $('#supplier_table').DataTable({
-        responsive: true,
-        processing: true,
-        ajax: "",
-        columns: [{
-                searchable: false,
-                orderable: false,
-                data: null,
-                defaultContent: ''
+        function edit(id) {
+        $.ajax({
+            url: "{{url('supplier/getDetail')}}",
+            type: "get",
+            data: {
+                id: id
             },
-            {
-                data: "nama"
+            dataType: "json",
+            success: function(data) {
+                $('#id_edit').val(id);
+                $('#nama_edit').val(data.nama);
+                $('#alamat_edit').val(data.alamat);
+                $("#edit_modal").modal("show");
             },
-            {
-                data: "alamat"
-            },
-            {
-                data: "aksi",
-                class: "text-center"
-            },
-        ]
-    });
-    
-    supplier_table.on('order.dt search.dt', function() {
-        pengajuan_table.column(0, {
-            search: 'applied',
-            order: 'applied'
-        }).nodes().each(function(cell, i) {
-            cell.innerHTML = i + 1;
+            error: function(err) {}
         });
-    }).draw();
-    
-    function getSupplierData() {
-        supplier_table.ajax.url("{{url('supplier/getData')}}").load(null, false);
     }
     </script>
+    @if(session('Save'))
+        <script>
+            Swal.fire('Berhasil!', 'Data Berhasil Berhasil Disimpan.', 'success');
+        </script>
+    @endif
 @endsection
