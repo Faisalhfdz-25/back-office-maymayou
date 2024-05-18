@@ -139,7 +139,7 @@
                                         <div class="subcat">
                                             <ul>
                                                 <li><a href="/penggunaan">Penggunaan Produk</a></li>
-                                                <li><a href="/jenis">Jenis Produk</a></li>
+                                                <li><a href="/jenis-kategori">Jenis Produk</a></li>
                                                 <li><a href="/kelas">Kelas dan Varian Produk</a></li>
                                             </ul>
                                         </div>

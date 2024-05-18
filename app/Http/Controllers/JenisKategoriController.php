@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Supplier;
+use App\Models\JenisKategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class SupplierController extends Controller
+class JenisKategoriController extends Controller
 {
     public function index(){
-        $data = Supplier::all();
-        return view('supplier.index',compact('data'));
+        $data = JenisKategori::all();
+        return view('jeniskategori.index',compact('data'));
     }
 
     public function simpan(Request $request)
     {
-        $data = new Supplier();        
+        $data = new JenisKategori();        
         DB::beginTransaction();
         try {
             $data->nama = $request->nama;
-            $data->alamat = $request->alamat;
+            $data->keterangan = $request->keterangan;
             if ($data->save()) {
                 DB::commit();
             } else {
@@ -28,12 +28,12 @@ class SupplierController extends Controller
         } catch (\Throwable $th) {
             DB::rollback();
         }
-        return redirect('/supplier')->with('Save','Data Berhasil Disimpan');
+        return redirect('/jenis-kategori')->with('Save','Data Berhasil Disimpan');
     }
 
     public function hapus(Request $request)
     {
-        $data = Supplier::where('id', $request->id)->first();
+        $data = JenisKategori::where('id', $request->id)->first();
         if (!$data) {
             return 'false';
         }
@@ -46,22 +46,22 @@ class SupplierController extends Controller
 
     public function getdetail(Request $request)
     {
-        $data = Supplier::find($request->id);
+        $data = JenisKategori::find($request->id);
         if (!$data) {
             return false;
         }
         $data->nama = $data->nama;
-        $data->alamat = $data->alamat;
+        $data->keterangan = $data->keterangan;
         return $data;
     }
 
     public function update(Request $request)
     {
-        $data = Supplier::find($request->id);       
+        $data = JenisKategori::find($request->id);       
         DB::beginTransaction();
         try {
             $data->nama = $request->nama;
-            $data->alamat = $request->alamat;
+            $data->keterangan = $request->keterangan;
             if ($data->update()) {
                 DB::commit();
             } else {
@@ -70,6 +70,6 @@ class SupplierController extends Controller
         } catch (\Throwable $th) {
             DB::rollback();
         }
-        return redirect('/supplier')->with('Save','Data Berhasil Disimpan');
+        return redirect('/jenis-kategori')->with('Save','Data Berhasil Disimpan');
     }
 }
