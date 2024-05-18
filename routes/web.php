@@ -5,7 +5,10 @@ use App\Http\Controllers\BahanBakuController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryListController;
 use App\Http\Controllers\JenisKategoriController;
+use App\Http\Controllers\KelasProdukController;
+use App\Http\Controllers\PenggunaanProdukController;
 use App\Http\Controllers\SupplierController;
+use App\Models\PenggunaanProduk;
 use Illuminate\Support\Facades\Route;
 
 
@@ -39,5 +42,23 @@ Route::middleware('auth')->group(function(){
         Route::post('/jenis-kategori/simpan', 'simpan');
         Route::post('/jenis-kategori/update', 'update');
         Route::get('/jenis-kategori/getDetail', 'getdetail');
+    });
+
+    Route::controller(PenggunaanProdukController::class)->group(function(){
+        Route::get('/penggunaan-produk','index');
+        Route::get('/penggunaan-produk/getData','getData');
+        Route::post('/penggunaan-produk/hapus', 'hapus');
+        Route::post('/penggunaan-produk/simpan', 'simpan');
+        Route::post('/penggunaan-produk/update', 'update');
+        Route::get('/penggunaan-produk/getDetail', 'getdetail');
+    });
+
+    Route::controller(KelasProdukController::class)->group(function(){
+        Route::get('/kelas-produk','index');
+        Route::get('/kelas-produk/getData','getData');
+        Route::post('/kelas-produk/hapus', 'hapus');
+        Route::post('/kelas-produk/simpan', 'simpan');
+        Route::post('/kelas-produk/update', 'update');
+        Route::get('/kelas-produk/getDetail', 'getdetail');
     });
 });

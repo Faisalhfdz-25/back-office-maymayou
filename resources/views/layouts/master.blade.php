@@ -138,9 +138,9 @@
                                         <a href="javascript:;">Kategori</a>
                                         <div class="subcat">
                                             <ul>
-                                                <li><a href="/penggunaan">Penggunaan Produk</a></li>
+                                                <li><a href="/penggunaan-produk">Penggunaan Produk</a></li>
                                                 <li><a href="/jenis-kategori">Jenis Produk</a></li>
-                                                <li><a href="/kelas">Kelas dan Varian Produk</a></li>
+                                                <li><a href="/kelas-produk">Kelas dan Varian Produk</a></li>
                                             </ul>
                                         </div>
                                     </li>

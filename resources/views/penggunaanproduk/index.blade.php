@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','Jenis Kategori')
+@section('title','Penggunaan Produk')
 @section('content')
 <div class="main">
 
@@ -8,7 +8,7 @@
         <div class="col">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#"><i class="ti-home"></i> Master Data</a></li>
-                <li class="breadcrumb-item active">Jenis Produk</li>
+                <li class="breadcrumb-item active">Penggunaan Produk</li>
             </ol>
         </div>
     </div>
@@ -19,7 +19,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <div class="caption uppercase">
-                        <i class="ti-file"></i> Jenis Produk
+                        <i class="ti-file"></i> Penggunaan Produk
                     </div>
                     <div class="tools">
                         <a href="javascript:;" class="btn btn-sm btn-success exampleModalSize" data-size="lg"><i class="ti-plus"></i> Tambah Data</a>
@@ -66,7 +66,7 @@
             </div>
             <div class="modal-body">
                 <div class="card mb-3">
-                    <form method="post" action="{{url('jenis-kategori/simpan')}}" novalidate enctype="multipart/form-data">
+                    <form method="post" action="{{url('penggunaan-produk/simpan')}}" novalidate enctype="multipart/form-data">
                         @csrf
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
@@ -108,7 +108,7 @@
             </div>
             <div class="modal-body">
                 <div class="card mb-3">
-                    <form method="post" action="{{url('jenis-kategori/update')}}" novalidate enctype="multipart/form-data">
+                    <form method="post" action="{{url('penggunaan-produk/update')}}" novalidate enctype="multipart/form-data">
                         @csrf
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
@@ -153,7 +153,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "{{url('jenis-kategori/hapus')}}",
+                        url: "{{url('penggunaan-produk/hapus')}}",
                         type: "post",
                         data: {
                             _token: '{{csrf_token()}}',
@@ -180,7 +180,7 @@
 
         function edit(id) {
         $.ajax({
-            url: "{{url('jenis-kategori/getDetail')}}",
+            url: "{{url('penggunaan-produk/getDetail')}}",
             type: "get",
             data: {
                 id: id
