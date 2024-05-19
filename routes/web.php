@@ -24,11 +24,14 @@ Route::middleware('auth')->group(function(){
 
     Route::controller(InventoryListController::class)->group(function(){
         Route::get('/inventory-list','index');
+        Route::post('/inventory-list/hapus', 'hapus');
+        Route::post('/inventory-list/simpan', 'simpan');
+        Route::post('/inventory-list/update', 'update');
+        Route::get('/inventory-list/getDetail', 'getdetail');
     });
     
     Route::controller(SupplierController::class)->group(function(){
         Route::get('/supplier','index');
-        Route::get('/supplier/getData','getData');
         Route::post('/supplier/hapus', 'hapus');
         Route::post('/supplier/simpan', 'simpan');
         Route::post('/supplier/update', 'update');
@@ -37,7 +40,6 @@ Route::middleware('auth')->group(function(){
 
     Route::controller(JenisKategoriController::class)->group(function(){
         Route::get('/jenis-kategori','index');
-        Route::get('/jenis-kategori/getData','getData');
         Route::post('/jenis-kategori/hapus', 'hapus');
         Route::post('/jenis-kategori/simpan', 'simpan');
         Route::post('/jenis-kategori/update', 'update');
@@ -46,7 +48,6 @@ Route::middleware('auth')->group(function(){
 
     Route::controller(PenggunaanProdukController::class)->group(function(){
         Route::get('/penggunaan-produk','index');
-        Route::get('/penggunaan-produk/getData','getData');
         Route::post('/penggunaan-produk/hapus', 'hapus');
         Route::post('/penggunaan-produk/simpan', 'simpan');
         Route::post('/penggunaan-produk/update', 'update');
@@ -55,7 +56,6 @@ Route::middleware('auth')->group(function(){
 
     Route::controller(KelasProdukController::class)->group(function(){
         Route::get('/kelas-produk','index');
-        Route::get('/kelas-produk/getData','getData');
         Route::post('/kelas-produk/hapus', 'hapus');
         Route::post('/kelas-produk/simpan', 'simpan');
         Route::post('/kelas-produk/update', 'update');

@@ -162,10 +162,10 @@
                         dataType: "json",
                         success: function(data) {
                             if (data) {
-                                Swal.fire('Berhasil!', 'Data Supplier berhasil dihapus.', 'success');
+                                Swal.fire('Berhasil!', 'Data Jenis Produk berhasil dihapus.', 'success');
                                 location.reload()
                             } else {
-                                Swal.fire('Gagal!', 'Data Supplier gagal dihapus, silahkan refresh halaman ini kemudian coba lagi.', 'error');
+                                Swal.fire('Gagal!', 'Data Jenis Produk gagal dihapus, silahkan refresh halaman ini kemudian coba lagi.', 'error');
                                 location.reload()
                             }
                         },
@@ -198,7 +198,7 @@
     </script>
     @if(session('Save'))
         <script>
-            Swal.fire('Berhasil!', 'Data Berhasil Berhasil Disimpan.', 'success');
+            Swal.fire('Berhasil!', 'Data Berhasil Disimpan.', 'success');
         </script>
     @endif
 @endsection
