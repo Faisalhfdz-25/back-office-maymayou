@@ -28,7 +28,6 @@ Route::middleware('auth')->group(function(){
         Route::post('/inventory-list/simpan', 'simpan');
         Route::get('/inventory-list/editview/{id}', 'editview');
         Route::post('/inventory-list/update', 'update');
-        Route::get('/inventory-list/getDetail', 'getdetail');
     });
     
     Route::controller(SupplierController::class)->group(function(){
