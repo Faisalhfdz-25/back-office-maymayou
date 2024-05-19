@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/inventory-list','index');
         Route::post('/inventory-list/hapus', 'hapus');
         Route::post('/inventory-list/simpan', 'simpan');
+        Route::get('/inventory-list/editview/{id}', 'editview');
         Route::post('/inventory-list/update', 'update');
         Route::get('/inventory-list/getDetail', 'getdetail');
     });

@@ -6,11 +6,11 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <title>MMY JCD - @yield('title')</title>
-    <link rel="stylesheet" href="assets/css/siqtheme.css">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
-    <link rel="stylesheet" href="assets/css/pages/dashboard1.css">
-    <link rel="stylesheet" href="assets/vendors/bootstrap-select/bootstrap-select.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/siqtheme.css') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('assets/img/favicon.png') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/pages/dashboard1.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/bootstrap-select.min.css') }}">
 
 </head>
 
@@ -433,12 +433,12 @@
   integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
   crossorigin="anonymous"></script>
     <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="assets/scripts/siqtheme.js"></script>
-    <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-    <script src="assets/scripts/pages/fm_control.js"></script>
-    <script src="assets/scripts/pages/dashboard1.js"></script>
-    <script src="assets/scripts/pages/tb_datatables.js"></script>
-    <script src="assets/scripts/pages/ui_modal.js"></script>
+    <script src="{{ asset('assets/scripts/siqtheme.js') }}"></script>
+    <script src="{{ asset('assets/vendors/bootstrap-select/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('assets/scripts/pages/fm_control.js') }}"></script>
+    <script src="{{ asset('assets/scripts/pages/dashboard1.js') }}"></script>
+    <script src="{{ asset('assets/scripts/pages/tb_datatables.js') }}"></script>
+    <script src="{{ asset('assets/scripts/pages/ui_modal.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @yield('script')

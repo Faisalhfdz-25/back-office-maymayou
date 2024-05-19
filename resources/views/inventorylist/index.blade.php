@@ -61,7 +61,7 @@
                                         <td>{{ $item->is_toko }}</td>
                                         <td>{{ $item->is_frozen }}</td>
                                         <td>
-                                            <a class="btn btn-sm btn-warning" href="javascript:void(0);" onclick="edit('{{ $item->id }}')">Edit</a>
+                                            <a class="btn btn-sm btn-warning" href="/inventory-list/editview/{{ $item->id }}">Edit</a>
                                             <a class="btn btn-sm btn-danger" href="javascript:void(0);" onclick="hapus('{{ $item->id }}')">Delete</a>
                                         </td>
                                     </tr>
@@ -94,7 +94,7 @@
                                     <label class="col-md-3 col-form-label">Kode</label>
                                     <div class="col">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="nama">
+                                            <input type="text" class="form-control" name="kode">
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                     <label class="col-md-3 col-form-label">QTY Min</label>
                                     <div class="col">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="qty">
+                                            <input type="number" class="form-control" name="qty">
                                         </div>
                                     </div>
                                 </div>
@@ -217,148 +217,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Ubah Data</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="card mb-3">
-                    <form method="post" action="{{url('jenis-kategori/simpan')}}" novalidate enctype="multipart/form-data">
-                        @csrf
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <div class="form-group row">
-                                    <label class="col-md-3 col-form-label">Kode</label>
-                                    <div class="col">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="nama">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 col-form-label">Nama</label>
-                                    <div class="col">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="nama">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 col-form-label">Jenis</label>
-                                    <div class="col">
-                                        <select class="form-control selectpicker">
-                                            @foreach ($jenis as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }} - {{ $item->keterangan }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 col-form-label">Penggunaan</label>
-                                    <div class="col">
-                                        <select class="form-control selectpicker">
-                                            @foreach ($penggunaan as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }} - {{ $item->keterangan }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 col-form-label">Kelas</label>
-                                    <div class="col">
-                                        <select class="form-control selectpicker">
-                                            @foreach ($kelas as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }} - {{ $item->keterangan }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 col-form-label">Satuan</label>
-                                    <div class="col">
-                                        <select class="form-control selectpicker">
-                                            <option value="Kg">Kg</option>
-                                            <option value="Gram">Gram</option>
-                                            <option value="Liter">Liter</option>
-                                            <option value="Mili Liter">Mili Liter</option>
-                                            <option value="Pack">Pack</option>
-                                            <option value="Pcs">Pcs</option>
-                                            <option value="Bottle">Bottle</option>
-                                            <option value="Ikat">Ikat</option>
-                                            <option value="Renceng">Renceng</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 col-form-label">QTY Min</label>
-                                    <div class="col">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="nama">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 col-form-label">Merk</label>
-                                    <div class="col">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="nama">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 col-form-label">Tempat</label>
-                                    <div class="col">
-                                        <select class="form-control selectpicker">
-                                            @foreach ($tempat as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-md-3 col-form-label">Digunakan Di :</label>
-                                    <div class="col">
-                                        <div class="form-checkbox">
-                                            <label>
-                                                <input type="checkbox" name="checkbox7">
-                                                <span class="checkmark"><i class="fa fa-check"></i></span>
-                                                Produksi
-                                            </label>
-                                        </div>
-                                        <div class="form-checkbox">
-                                            <label>
-                                                <input type="checkbox" name="checkbox8">
-                                                <span class="checkmark"><i class="fa fa-check"></i></span>
-                                                Toko
-                                            </label>
-                                        </div>
-                                        <div class="form-checkbox">
-                                            <label>
-                                                <input type="checkbox" name="checkbox9">
-                                                <span class="checkmark"><i class="fa fa-check"></i></span>
-                                                Frozen
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 @endsection
 @section('script')
     <script>
@@ -397,23 +255,6 @@
                 }
             })
         }
-
-        function edit(id) {
-        $.ajax({
-            url: "{{url('inventory-list/getDetail')}}",
-            type: "get",
-            data: {
-                id: id
-            },
-            dataType: "json",
-            success: function(data) {
-                $('#id_edit').val(id);
-                $('#nama_edit').val(data.nama);
-                $('#keterangan_edit').val(data.keterangan);
-                $("#edit_modal").modal("show");
-            },
-            error: function(err) {}
-        });
     }
     </script>
     @if(session('Save'))

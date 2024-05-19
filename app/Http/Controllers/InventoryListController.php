@@ -23,12 +23,35 @@ class InventoryListController extends Controller
 
     public function simpan(Request $request)
     {
-        dd($request->all());
         $data = new Inventory();        
         DB::beginTransaction();
         try {
+            $data->kode = $request->kode;
             $data->nama = $request->nama;
-            $data->keterangan = $request->keterangan;
+            $data->jenis = $request->jenis;
+            $data->penggunaan = $request->penggunaan;
+            $data->kelas = $request->kelas;
+            $data->satuan = $request->satuan;
+            $data->qty_min = $request->qty;
+            $data->merk = $request->merk;
+            $data->tempat = $request->supplier;
+            if($request->is_produksi){
+                $data->is_produksi = true;
+            }else{
+                $data->is_produksi = false;
+            }
+            
+            if($request->is_toko){
+                $data->is_toko = true;
+            }else{
+                $data->is_toko = false;
+            }
+            
+            if($request->is_frozen){
+                $data->is_frozen = true;
+            }else{
+                $data->is_frozen = false;
+            }
             if ($data->save()) {
                 DB::commit();
             } else {
@@ -37,7 +60,7 @@ class InventoryListController extends Controller
         } catch (\Throwable $th) {
             DB::rollback();
         }
-        return redirect('/jenis-kategori')->with('Save','Data Berhasil Disimpan');
+        return redirect('/inventory-list')->with('Save','Data Berhasil Disimpan');
     }
 
     public function hapus(Request $request)
@@ -53,32 +76,48 @@ class InventoryListController extends Controller
         }
     }
 
-    public function getdetail(Request $request)
+    public function editview($id)
     {
-        $data = JenisKategori::find($request->id);
-        if (!$data) {
-            return false;
-        }
-        $data->nama = $data->nama;
-        $data->keterangan = $data->keterangan;
-        return $data;
+        $data = Inventory::find($id);
+        $kelas = KelasProduk::orderBy('id','ASC')->get();
+        $penggunaan = PenggunaanProduk::orderBy('id','ASC')->get();
+        $jenis = JenisKategori::orderBy('id','ASC')->get();
+        $tempat = Supplier::orderBy('id','ASC')->get();
+        return view('inventorylist.editview',compact('data','kelas','penggunaan','jenis','tempat'));
     }
 
     public function update(Request $request)
     {
-        $data = JenisKategori::find($request->id);       
-        DB::beginTransaction();
-        try {
+        $data = Inventory::find($request->id);      
+        
+            $data->kode = $request->kode;
             $data->nama = $request->nama;
-            $data->keterangan = $request->keterangan;
-            if ($data->update()) {
-                DB::commit();
-            } else {
-                DB::rollback();
+            $data->jenis = $request->jenis;
+            $data->penggunaan = $request->penggunaan;
+            $data->kelas = $request->kelas;
+            $data->satuan = $request->satuan;
+            $data->qty_min = $request->qty;
+            $data->merk = $request->merk;
+            $data->tempat = $request->supplier;
+
+            if($request->is_produksi){
+                $data->is_produksi = true;
+            }else{
+                $data->is_produksi = false;
             }
-        } catch (\Throwable $th) {
-            DB::rollback();
-        }
-        return redirect('/jenis-kategori')->with('Save','Data Berhasil Disimpan');
+            
+            if($request->is_toko){
+                $data->is_toko = true;
+            }else{
+                $data->is_toko = false;
+            }
+            
+            if($request->is_frozen){
+                $data->is_frozen = true;
+            }else{
+                $data->is_frozen = false;
+            }
+            $data->update();
+        return redirect('/inventory-list')->with('Save','Data Berhasil Disimpan');
     }
 }
